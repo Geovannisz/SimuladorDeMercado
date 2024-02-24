@@ -38,12 +38,6 @@ Antes, vou explicar como o código funciona.
 * **Resultados:**
     * A função `resultado` imprime a quantidade de simulações que resultaram em stop loss, take profit ou nenhum dos dois.
 
-**Considerações:**
-
-* O código serve como um exemplo e pode ser adaptado para diferentes cenários.
-* Para uma análise mais completa, é recomendável realizar simulações com diferentes parâmetros e avaliar a sensibilidade dos resultados.
-* É possível adicionar um loop para realizar simulações com diferentes valores de `t` (porcentagem de acerto) e analisar o impacto na quantidade de stop losses, take profits e resultados intermediários.
-
 **Código:**
 ```python
 import matplotlib.pyplot as plt  # Biblioteca de plotagem
@@ -167,9 +161,10 @@ print("Nem um nem outro:", r[2])
 
 <img src="https://github.com/Geovannisz/SimuladorDeMercado/assets/82838501/d74dbb37-9909-4f96-8907-16b505b7b7c8">
 
+`Qtde. Stop Loss: 205` `Qtde. Take Profit: 216` `Nem um nem outro: 579`
 
-`Qtde. Stop Loss: 205`
+**Considerações:**
 
-`Qtde. Take Profit: 216`
-
-`Nem um nem outro: 579`
+* O código serve como um exemplo e pode ser adaptado para diferentes cenários.
+* Para uma análise mais completa, é recomendável realizar simulações com diferentes parâmetros e avaliar a sensibilidade dos resultados.
+* É possível adicionar um loop para realizar simulações com diferentes valores de `t` (porcentagem de acerto) e analisar o impacto na quantidade de stop losses, take profits e resultados intermediários.
