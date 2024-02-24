@@ -142,6 +142,7 @@ for _ in range(8):
 plt.xlabel('Número de operações')  # Título do eixo X
 plt.ylabel('Saldo (R$)')  # Título do eixo Y
 plt.title('Simulação de opções binárias')  # Título do gráfico
+plt.style.use('dark_background') # Tema do Gráfico
 plt.show()  # Exibe o gráfico
 
 # A lista saldo armazena o saldo final de cada uma das qtde simulações
