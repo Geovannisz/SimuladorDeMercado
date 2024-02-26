@@ -38,7 +38,7 @@ Simular o desempenho de uma estratégia de opções binárias com base no concei
 
 ## **Inspiração**
 
-O "andar do bêbado" foi utilizado por Albert Einstein para explicar o movimento browniano, o movimento aleatório de partículas em suspensão em um fluido. A ideia é que a partícula se move em uma série de passos aleatórios, cada um com a mesma probabilidade de ser para frente ou para trás.
+O "Andar do Bêbado" foi utilizado por Albert Einstein para explicar o movimento browniano, o movimento aleatório de partículas em suspensão em um fluido. A ideia é que a partícula se move em uma série de passos aleatórios, cada um com a mesma probabilidade de ser para frente ou para trás.
 
 ## **Relação com o código**
 
@@ -201,9 +201,27 @@ print("Nem um nem outro:", r[2])
 
 # Distibuição de Probabilidades dos Saldos Finais
 
+Vamos voltar a analogia do "Andar do Bêbado". Com o tempo, a distância total percorrida pelo bêbado será a soma dos passos individuais. Como os passos são aleatórios, não há como prever exatamente onde o bêbado estará em qualquer momento. No entanto, podemos calcular a probabilidade de o bêbado estar em uma determinada posição.
 
+A probabilidade de o bêbado estar a uma distância específica do ponto de partida segue uma função gaussiana, também conhecida como distribuição normal. Essa função tem a forma de um sino, com a probabilidade mais alta no ponto de partida e diminuindo à medida que a distância aumenta. E nós vamos provar isso nos cálculos a seguir.
 
 ## Base Teórica
+
+Partindo da posição $x_0 = 0$, o bêbado pode dar $1$ passo, fazendo com que sua posição $x_1$ possa ser $1$ ou $-1$. Logo:
+
+$$ x_1 = x_0 \pm 1 $$
+
+A média das posições de $x_1$ será de:
+
+$$ \langle x_1\rangle = \dfrac{-1 + 1}{2} = 0 $$
+
+Já a média quadrada de $x_1$ será:
+
+$$ \langle (x_1)^2\rangle = \dfrac{(-1)^2 + (1)^2}{2} = 1 $$
+
+Agora, ao dar o passo $2$, teremos:
+
+$$ x_2 = x_1 \pm 1,\, \langle x_2\rangle = 0,\, \langle (x_1)^2\rangle = \dfrac{(-1)^2 + (1)^2}{2} = 1$$
 
 
 
