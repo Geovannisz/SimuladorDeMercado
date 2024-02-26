@@ -9,10 +9,24 @@ Esse é um ambicioso projeto que simula o comportamento do mercado utilizando fe
    * [Relação com o código](#relação-com-o-código)
    * [Detalhes do código](#detalhes-do-código)
    * [Código](#código)
-* [Uso](#uso)
-* [Contribuindo](#contribuindo)
-* [Licença](#licenca)
-
+   * [Output](#output)
+   * [Considerações](#considerações)
+* [Distibuição de Probabilidades dos Saldos Finais](#distibuição-de-probabilidades-dos-saldos-finais)
+   * [Base Teórica](#base-teórica)
+   * [Código](#código)
+   * [Output](#output)
+* [Implementação de Candles em Gráficos Interativos](#implementação-de-candles-em-gráficos-interativos)
+   * [Introdução ao Plotly](#introdução-ao-plotly)
+   * [O passo aleatório](#o-passo-aleatório)
+   * [Entrada e Saída dos Candles](#entrada-e-saída-dos-candles)
+   * [Máximos e Mínimos dos Candles](#máximos-e-mínimos-dos-candles)
+   * [Indicador de Volume de Mercado](#indicador-de-volume-de-mercado)
+   * [Médias Móveis e Bandas de Bollinger](#médias-móveis-e-bandas-de-bollinger)
+   * [Indicador RSI](#indicador-rsi)
+   * [Código](#código)
+   * [Output](#output)
+* [Geração de Gráficos em Tempo Real](#geração-de-gráficos-em-tempo-real)
+   * [Introdução ao Dash](#introdução-ao-dash)
 
 # Simulação de Opções Binárias e o "Andar do Bêbado"
 
@@ -173,14 +187,77 @@ print("Qtde. Take Profit:", r[1])
 print("Nem um nem outro:", r[2])
 ```
 
-## **Possível Output**
+## **Output**
 
 <img src="https://github.com/Geovannisz/SimuladorDeMercado/assets/82838501/d74dbb37-9909-4f96-8907-16b505b7b7c8">
 
 `Qtde. Stop Loss: 205` `Qtde. Take Profit: 216` `Nem um nem outro: 579`
 
-**Considerações:**
+## **Considerações:**
 
 * O código serve como um exemplo e pode ser adaptado para diferentes cenários.
 * Para uma análise mais completa, é recomendável realizar simulações com diferentes parâmetros e avaliar a sensibilidade dos resultados.
 * É possível adicionar um loop para realizar simulações com diferentes valores de `t` (porcentagem de acerto) e analisar o impacto na quantidade de stop losses, take profits e resultados intermediários.
+
+# Distibuição de Probabilidades dos Saldos Finais
+
+
+
+## Base Teórica
+
+
+
+## Código
+
+
+
+## Output
+
+
+
+# Implementação de Candles em Gráficos Interativos
+
+
+
+## Introdução ao Plotly
+
+
+
+## O passo aleatório
+
+
+
+## Entrada e Saída dos Candles
+
+
+
+## Máximos e Mínimos dos Candles
+
+
+
+## Indicador de Volume de Mercado
+
+
+
+## Médias Móveis e Bandas de Bollinger
+
+
+
+## Indicador RSI
+
+
+
+## Código
+
+
+
+## Output
+
+
+
+# Geração de Gráficos em Tempo Real
+
+
+
+## Introdução ao Dash
+
