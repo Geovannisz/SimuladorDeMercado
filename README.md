@@ -8,13 +8,13 @@ Esse é um ambicioso projeto que simula o comportamento do mercado utilizando fe
    * [Inspiração](#inspiração)
    * [Relação com o código](#relação-com-o-código)
    * [Detalhes do código](#detalhes-do-código)
-   * [Código](#código)
-   * [Output](#output)
+   * [Código 1](#código-1)
+   * [Output 1](#output-1)
    * [Considerações](#considerações)
 * [Distibuição de Probabilidades dos Saldos Finais](#distibuição-de-probabilidades-dos-saldos-finais)
    * [Base Teórica](#base-teórica)
-   * [Código](#código)
-   * [Output](#output)
+   * [Código 2](#código-2)
+   * [Output 2](#output-2)
 * [Implementação de Candles em Gráficos Interativos](#implementação-de-candles-em-gráficos-interativos)
    * [Introdução ao Plotly](#introdução-ao-plotly)
    * [O passo aleatório](#o-passo-aleatório)
@@ -23,8 +23,8 @@ Esse é um ambicioso projeto que simula o comportamento do mercado utilizando fe
    * [Indicador de Volume de Mercado](#indicador-de-volume-de-mercado)
    * [Médias Móveis e Bandas de Bollinger](#médias-móveis-e-bandas-de-bollinger)
    * [Indicador RSI](#indicador-rsi)
-   * [Código](#código)
-   * [Output](#output)
+   * [Código 3](#código-3)
+   * [Output 3](#output-3)
 * [Geração de Gráficos em Tempo Real](#geração-de-gráficos-em-tempo-real)
    * [Introdução ao Dash](#introdução-ao-dash)
 
@@ -67,7 +67,7 @@ Antes, vou explicar como o código funciona.
 * **Resultados:**
     * A função `resultado` imprime a quantidade de simulações que resultaram em stop loss, take profit ou nenhum dos dois.
 
-## **Código**
+## **Código 1**
 ```python
 import matplotlib.pyplot as plt  # Biblioteca de plotagem
 import numpy as np  # Biblioteca de computação numérica
@@ -187,7 +187,7 @@ print("Qtde. Take Profit:", r[1])
 print("Nem um nem outro:", r[2])
 ```
 
-## **Output**
+## **Output 1**
 
 <img src="https://github.com/Geovannisz/SimuladorDeMercado/assets/82838501/d74dbb37-9909-4f96-8907-16b505b7b7c8">
 
@@ -207,11 +207,11 @@ print("Nem um nem outro:", r[2])
 
 
 
-## Código
+## Código 2
 
 
 
-## Output
+## Output 2
 
 
 
@@ -247,11 +247,11 @@ print("Nem um nem outro:", r[2])
 
 
 
-## Código
+## Código 3
 
 
 
-## Output
+## Output 3
 
 
 
