@@ -1,21 +1,36 @@
 # :chart_with_upwards_trend: Simulador De Mercado :chart_with_downwards_trend:
 Esse é um ambicioso projeto que simula o comportamento do mercado utilizando ferramentas provenientes de leis Físicas em Python.
+
+## Sumário
+
+* [Simulação de Opções Binárias e o "Andar do Bêbado"](#simulação-de-opções-binárias-e-o-andar-do-bêbado)
+   * [Objetivo](#objetivo)
+   * [Inspiração](#inspiração)
+   * [Relação com o código](#relação-com-o-código)
+   * [Detalhes do código](#detalhes-do-código)
+   * [Código](#código)
+* [Uso](#uso)
+* [Contribuindo](#contribuindo)
+* [Licença](#licenca)
+
+
+# Simulação de Opções Binárias e o "Andar do Bêbado"
+
 Primeiramente, vamos começar com o mais simples, que é simular gráficos de opções binárias, onde a chance de lucrar, em teoria, se equipara a chance de ter um prejuízo.
 
-## Simulação de Opções Binárias e o "Andar do Bêbado"
-**Objetivo:**
+## **Objetivo**
 
 Simular o desempenho de uma estratégia de opções binárias com base no conceito do "andar do bêbado", um modelo probabilístico que ilustra o movimento aleatório de uma partícula.
 
-**Inspiração:**
+## **Inspiração**
 
 O "andar do bêbado" foi utilizado por Albert Einstein para explicar o movimento browniano, o movimento aleatório de partículas em suspensão em um fluido. A ideia é que a partícula se move em uma série de passos aleatórios, cada um com a mesma probabilidade de ser para frente ou para trás.
 
-**Relação com o código:**
+## **Relação com o código**
 
 No código Python, simulamos uma série de operações de opções binárias, onde cada operação tem uma probabilidade fixa de ser vencedora ou perdedora. O movimento do saldo ao longo das operações é similar ao "andar do bêbado", com oscilações aleatórias em torno de um valor central.
 
-**Detalhes do código:**
+## **Detalhes do código**
 
 Antes, vou explicar como o código funciona.
 
@@ -38,7 +53,7 @@ Antes, vou explicar como o código funciona.
 * **Resultados:**
     * A função `resultado` imprime a quantidade de simulações que resultaram em stop loss, take profit ou nenhum dos dois.
 
-**Código:**
+## **Código**
 ```python
 import matplotlib.pyplot as plt  # Biblioteca de plotagem
 import numpy as np  # Biblioteca de computação numérica
@@ -158,7 +173,7 @@ print("Qtde. Take Profit:", r[1])
 print("Nem um nem outro:", r[2])
 ```
 
-**Possível Output:**
+## **Possível Output**
 
 <img src="https://github.com/Geovannisz/SimuladorDeMercado/assets/82838501/d74dbb37-9909-4f96-8907-16b505b7b7c8">
 
