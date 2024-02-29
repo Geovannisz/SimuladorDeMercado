@@ -1,3 +1,13 @@
+<!--
+<details>
+<summary>Click to expand</summary>
+
+This is the content of the collapsible section. You can include any Markdown-formatted text, lists, or code here.
+
+</details>Este é um comentário
+que abrange várias linhas.
+-->
+
 # :chart_with_upwards_trend: Simulador De Mercado :chart_with_downwards_trend:
 Esse é um ambicioso projeto que simula o comportamento do mercado utilizando ferramentas provenientes de leis Físicas em Python.
 
