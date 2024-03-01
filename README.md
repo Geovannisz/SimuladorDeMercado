@@ -1,3 +1,13 @@
+<!--
+<details>
+<summary>Click to expand</summary>
+
+This is the content of the collapsible section. You can include any Markdown-formatted text, lists, or code here.
+
+</details>Este é um comentário
+que abrange várias linhas.
+-->
+
 # :chart_with_upwards_trend: Simulador De Mercado :chart_with_downwards_trend:
 Esse é um ambicioso projeto que simula o comportamento do mercado utilizando ferramentas provenientes de leis Físicas em Python.
 
@@ -221,9 +231,14 @@ $$ \langle (x_1)^2\rangle = \dfrac{(-1)^2 + (1)^2}{2} = 1 $$
 
 Agora, ao dar o passo $2$, teremos:
 
-$$ x_2 = x_1 \pm 1,\, \langle x_2\rangle = 0,\, \langle (x_1)^2\rangle = \dfrac{(-1)^2 + (1)^2}{2} = 1$$
 
+\begin{align*}
 
+\langle x_2\rangle &= 0\\
+
+\langle (x_2)^2\rangle &= \langle (x_1 \pm 1)^2\rangle = 1$$
+
+\end{align*}
 
 ## Código 2
 
