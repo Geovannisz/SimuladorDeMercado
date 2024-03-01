@@ -5,15 +5,15 @@ import random
 # Definindo os parâmetros iniciais
 tick_count = 0  # Contador de ticks para cada candle
 candle_count = 0  # Contador de candles
-current_open = 0
-current_high = 0
-current_low = 0
-current_close = 0
+current_open = 100  # Inicializado com um valor arbitrário
+current_high = current_open
+current_low = current_open
+current_close = current_open
 width = 0.8
 
 # Configurando a figura e os eixos no formato paisagem 16:9
 fig, ax = plt.subplots(figsize=(16, 9))
-x_window = 80  # Define a largura da janela no eixo x
+x_window = 40  # Define a largura da janela no eixo x
 ax.set_xlim(0, x_window)
 ax.set_xlabel('Step')
 ax.set_ylabel('Position')
@@ -58,14 +58,16 @@ def animate(i):
 
     # Atualizar o contador de ticks e, se necessário, adicionar novo candle
     tick_count += 1
-    if tick_count == 10:
+    if tick_count == 5:
         add_candle()
         tick_count = 0
 
     # Atualizar a cor e a altura do candle atual
     if current_candle_bar:
         current_candle_bar.remove()
-    current_candle_bar = ax.bar(candle_count, current_close - current_open, bottom=current_open, width=width, color='grey', zorder=3)
+    color = 'green' if current_close >= current_open else 'red'
+    bottom = min(current_close, current_open)
+    current_candle_bar = ax.bar(candle_count + width/2, abs(current_close - current_open), bottom=bottom, width=width, color=color, zorder=3)
 
     # Desenhar e atualizar a linha do tick
     tick_color = 'green' if step >= 0 else 'red'
@@ -76,11 +78,12 @@ def animate(i):
     # Desenhar os candles anteriores
     for candle in candles:
         color = 'green' if candle['close'] >= candle['open'] else 'red'
-        ax.bar(candle['index'], candle['close'] - candle['open'], bottom=min(candle['open'], candle['close']), width=width, color=color, zorder=3)
-        ax.plot([candle['index'], candle['index']], [candle['low'], candle['high']], color='black')  # Mechas
+        bottom = min(candle['open'], candle['close'])
+        ax.bar(candle['index'] + width/2, abs(candle['close'] - candle['open']), bottom=bottom, width=width, color=color, zorder=3)
+        ax.plot([candle['index'] + width/2, candle['index'] + width/2], [candle['low'], candle['high']], color='black', zorder=2)  # Mechas
 
     # Movendo o gráfico para a direita conforme os candles avançam
-    ax.set_xlim(candle_count - x_window + width/2, candle_count + width/2)
+    ax.set_xlim(candle_count - x_window + width, candle_count + width)
 
     # Ajustar os limites do gráfico no eixo y para acomodar os candles visíveis
     all_lows = [c['low'] for c in candles] + [current_low]
