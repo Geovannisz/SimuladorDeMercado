@@ -155,6 +155,15 @@ def toggle_bollinger(event):
     bollinger_lower_line.set_visible(show_bollinger)
     plt.draw()
 
+# Função de callback para alterar a cor de fundo do gráfico
+def toggle_background_color(event):
+    global fig, ax
+    color = fig.get_facecolor()
+    new_color = 'black' if color == (1.0, 1.0, 1.0, 1.0) else 'white'
+    fig.set_facecolor(new_color)
+    ax.set_facecolor(new_color)
+    plt.draw()
+
 # Função de animação chamada em cada tick
 def animate(i):
     if paused:  # Se estiver pausada, não faça nada
@@ -227,6 +236,10 @@ btn_toggle_bollinger = Button(axtoggle_bollinger, 'Toggle Bollinger')
 btn_pause.on_clicked(toggle_animation)
 btn_toggle_sma.on_clicked(toggle_sma)
 btn_toggle_bollinger.on_clicked(toggle_bollinger)
+
+axtoggle_bg = plt.axes([0.25, 0.025, 0.1, 0.04])  # Definindo a posição do botão de alterar cor de fundo
+btn_toggle_bg = Button(axtoggle_bg, 'Toggle BG Color')
+btn_toggle_bg.on_clicked(toggle_background_color)
 
 # Criando a animação e fazendo com que continue indefinidamente
 ani = animation.FuncAnimation(fig, animate, init_func=init, interval=1, blit=False)
