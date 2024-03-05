@@ -65,8 +65,13 @@ def calculate_bollinger_bands(candles, periods):
 
 # Função para desenhar as bandas de Bollinger
 def draw_bollinger_bands(candles, periods):
-    global bollinger_upper_line, bollinger_lower_line
+    global bollinger_upper_line, bollinger_lower_line, dark_mode
     upper_bands, lower_bands = [], []
+
+    if dark_mode:
+        cor = 'white'
+    else:
+        cor = 'black'
 
     for i in range(periods - 1, len(candles)):
         upper_band, lower_band = calculate_bollinger_bands(candles[:i+1], periods)
@@ -78,8 +83,8 @@ def draw_bollinger_bands(candles, periods):
     if bollinger_lower_line:
         bollinger_lower_line.remove()
 
-    bollinger_upper_line = ax.plot(range(periods - 1, len(candles)), upper_bands, 'k--', linewidth=1, alpha=0.75)[0]
-    bollinger_lower_line = ax.plot(range(periods - 1, len(candles)), lower_bands, 'k--', linewidth=1, alpha=0.75)[0]
+    bollinger_upper_line = ax.plot(range(periods - 1, len(candles)), upper_bands, 'k--', linewidth=1, alpha=0.75, color=cor)[0]
+    bollinger_lower_line = ax.plot(range(periods - 1, len(candles)), lower_bands, 'k--', linewidth=1, alpha=0.75, color=cor)[0]
 
     # Novo código para lidar com a visibilidade
     bollinger_upper_line.set_visible(show_bollinger)
@@ -126,13 +131,66 @@ def add_candle():
     current_high = current_close
     current_low = current_close
 
+# Variável de controle para o modo escuro
+dark_mode = False
+
+# Função de callback para alterar para o modo escuro e inverter a paleta de cores
+def toggle_dark_mode(event):
+    global fig, ax, dark_mode, candles, bollinger_upper_line, bollinger_lower_line
+    dark_mode = not dark_mode
+
+    new_color = 'black' if dark_mode else 'white'
+    text_color = 'white' if dark_mode else 'black'
+    line_color = 'white' if dark_mode else 'black'
+
+    # Atualizar as cores de fundo
+    fig.set_facecolor(new_color)
+    ax.set_facecolor(new_color)
+
+    # Inverter as cores do texto nos eixos
+    ax.xaxis.label.set_color(text_color)
+    ax.yaxis.label.set_color(text_color)
+    ax.tick_params(axis='x', colors=text_color)
+    ax.tick_params(axis='y', colors=text_color)
+
+    # Inverter as cores dos candles, linhas SMA e Bollinger
+    for candle in candles:
+        draw_candle(candle, redraw=False)  # Redesenhar cada candle com as novas cores
+    if candle_count >= periods:
+        draw_sma(candles, periods)
+        draw_bollinger_bands(candles, periods)
+
+    # Inverter as cores das linhas das bandas de Bollinger
+    if bollinger_upper_line:
+        bollinger_upper_line.set_color(line_color)
+    if bollinger_lower_line:
+        bollinger_lower_line.set_color(line_color)
+
+    # Inverter as cores das bordas do gráfico (spines)
+    for spine in ax.spines.values():
+        spine.set_edgecolor(line_color)
+
+    plt.draw()
+
 # Função para desenhar um candle
-def draw_candle(candle, zorder=3):
-    color = 'white' if candle['close'] >= candle['open'] else 'black'
+def draw_candle(candle, zorder=3, redraw=True):
+    global dark_mode
+    if dark_mode:
+        color = 'green' if candle['close'] >= candle['open'] else 'red'
+        edgecolor = 'white'
+    else:
+        color = 'white' if candle['close'] >= candle['open'] else 'black'
+        edgecolor = 'black'
+
+    # Remover o candle anterior se estiver no modo de redesenho
+    if redraw and 'bar' in candle:
+        for bar in candle['bar']:
+            bar.remove()
+
     bottom = min(candle['open'], candle['close'])
-    # Adicionando o parâmetro 'edgecolor' para desenhar a borda preta
-    ax.bar(candle['index'] + width/2, abs(candle['close'] - candle['open']), bottom=bottom, width=width, color=color, edgecolor='black', zorder=zorder)
-    ax.plot([candle['index'] + width/2, candle['index'] + width/2], [candle['low'], candle['high']], color='black', zorder=zorder-1)  # Mechas
+    # Atualizar o candle com as novas cores
+    candle['bar'] = ax.bar(candle['index'] + width/2, abs(candle['close'] - candle['open']), bottom=bottom, width=width, color=color, edgecolor=edgecolor, zorder=zorder)
+    ax.plot([candle['index'] + width/2, candle['index'] + width/2], [candle['low'], candle['high']], color=edgecolor, zorder=zorder-1)  # Mechas
 
 # Função de callback para pausar/continuar a animação
 def toggle_animation(event):
@@ -162,6 +220,19 @@ def toggle_background_color(event):
     new_color = 'black' if color == (1.0, 1.0, 1.0, 1.0) else 'white'
     fig.set_facecolor(new_color)
     ax.set_facecolor(new_color)
+    plt.draw()
+
+# Função de manipulação de eventos de rolagem do mouse para zoom
+def on_scroll(event):
+    global x_window
+    base_scale = 1.1
+    if event.button == 'up':  # Zoom in
+        x_window = max(int(x_window / base_scale), 10)
+    elif event.button == 'down':  # Zoom out
+        x_window = min(int(x_window * base_scale), len(candles))
+
+    # Atualizar os limites do eixo x
+    ax.set_xlim(candle_count - x_window + width, candle_count + width)
     plt.draw()
 
 # Função de animação chamada em cada tick
@@ -194,10 +265,15 @@ def animate(i):
     # Atualizar a cor e a altura do candle atual
     if current_candle_bar:
         current_candle_bar.remove()
-    color = 'white' if current_close >= current_open else 'black'
+
     bottom = min(current_close, current_open)
-    # Adicionando o parâmetro 'edgecolor' para desenhar a borda preta
-    current_candle_bar = ax.bar(candle_count + width/2, abs(current_close - current_open), bottom=bottom, width=width, color=color, edgecolor='black', zorder=4)
+
+    if dark_mode:
+        color = 'green' if current_close >= current_open else 'red'
+        current_candle_bar = ax.bar(candle_count + width/2, abs(current_close - current_open), bottom=bottom, width=width, color=color, edgecolor='white', zorder=4)
+    else:
+        color = 'white' if current_close >= current_open else 'black'
+        current_candle_bar = ax.bar(candle_count + width/2, abs(current_close - current_open), bottom=bottom, width=width, color=color, edgecolor='black', zorder=4)
 
     # Desenhar e atualizar a linha do tick
     tick_color = 'green' if step >= 0 else 'red'
@@ -237,12 +313,15 @@ btn_pause.on_clicked(toggle_animation)
 btn_toggle_sma.on_clicked(toggle_sma)
 btn_toggle_bollinger.on_clicked(toggle_bollinger)
 
-axtoggle_bg = plt.axes([0.25, 0.025, 0.1, 0.04])  # Definindo a posição do botão de alterar cor de fundo
-btn_toggle_bg = Button(axtoggle_bg, 'Toggle BG Color')
-btn_toggle_bg.on_clicked(toggle_background_color)
+axtoggle_bg = plt.axes([0.25, 0.025, 0.1, 0.04])  # Definindo a posição do botão de alterar para o modo escuro
+btn_toggle_bg = Button(axtoggle_bg, 'Dark Mode')
+btn_toggle_bg.on_clicked(toggle_dark_mode)
 
 # Criando a animação e fazendo com que continue indefinidamente
-ani = animation.FuncAnimation(fig, animate, init_func=init, interval=1, blit=False)
+ani = animation.FuncAnimation(fig, animate, init_func=init, interval=0.1, blit=False)
+
+# Conectar a função de rolagem do mouse ao evento de rolagem
+fig.canvas.mpl_connect('scroll_event', on_scroll)
 
 # Mostrar a animação
 plt.show()
