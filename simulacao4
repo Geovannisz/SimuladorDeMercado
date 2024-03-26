@@ -1,0 +1,50 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import matplotx
+
+# Parâmetros da simulação
+n = 1000  # Número de passos
+mu = 2  # Taxa de crescimento
+t = 0.7/25 # Taxa de crescimento 2
+kappa = 2  # Reversão à média da volatilidade
+theta = 0.1  # Nível de longo prazo da volatilidade
+sigma = 0.05  # Volatilidade da volatilidade
+
+def g(y, t, mu, kappa, theta, sigma, n):
+    valor_atual = 1
+    v = np.zeros(n)
+    f = np.zeros(n)
+    v[0] = theta
+    f[0] = np.log(valor_atual)
+    for i in range(n-1):
+        aleatorio_v = np.random.normal(0, sigma)
+        aleatorio_f = np.random.normal(0, mu)
+        v[i+1] = v[i] + kappa*(theta - v[i]) + sigma*aleatorio_v
+        f[i+1] = f[i] + t + np.sqrt(v[i+1])*aleatorio_f
+        valor_atual *= np.exp(f[i+1] - f[i])
+    return f, v
+
+def rnd(s):
+    a = np.random.rand(s)
+    b = []
+    for i in range(s):
+        b.append(np.log(a[i]))
+    return b
+
+x = np.arange(0, n, 1)
+y = np.zeros(n)
+
+plt.style.use(matplotx.styles.dracula)
+plt.plot(x, y, color='white')
+plt.xlabel('Passos')
+plt.ylabel('Valor')
+plt.title('Simulação do Modelo de Heston')
+plt.style.use(matplotx.styles.dracula)
+plt.xlim(0,n)
+
+l = 1200
+for _ in range(l):
+    f, v = g(rnd(n), t, mu, kappa, theta, sigma, n)
+    plt.plot(x, f, linewidth=min(0.7,25/l))
+
+plt.show()
